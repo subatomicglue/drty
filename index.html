@@ -13,8 +13,61 @@
       }
     </style>
     <script>
-      function submit() {
+      function process() {
         outbox.innerHTML = inbox.value.replace( /\n/g, "<br>" )
+      }
+      function example_text() {
+        inbox.value = `<table id="size-guide" style="min-width: 360px;">
+<thead>
+<tr>
+<th style="padding: 10px;">&nbsp;</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">S</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">M</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">L</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">XL</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">2XL</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">3XL</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">4XL</th>
+<th style="color: #000000; font-weight: 500; text-align: left; font-size: 15px; padding: 10px;">5XL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">Width, in</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">18.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">20.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">22.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">24.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">26.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">28.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">30.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">32.00</td>
+</tr>
+<tr>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">Length, in</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">28.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">29.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">30.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">31.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">32.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">33.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">34.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">35.00</td>
+</tr>
+<tr>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">Sleeve length from center back, in</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">15.62</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">17.37</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">18.75</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">20.00</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">21.50</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">22.87</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">24.25</td>
+<td style="padding: 10px; color: #525252; font-size: 15px; border-top: 1px solid #ededed; word-break: break-word;">25.50</td>
+</tr>
+</tbody>
+</table>
+`
       }
       function auto_grow(element) {
         element.style.height = "5px";
@@ -23,9 +76,11 @@
     </script>
   </head>
   <body>
+    <a href="https://html-preview.github.io/?url=https://github.com/subatomicglue/drty/blob/main/index.html">github</a>
     <form action="" method="get">
-      <textarea id="inbox" class="textarea" oninput="auto_grow(this)"></textarea>
-      <input type="button" value="submit" onclick="submit();">
+      <textarea id="inbox" class="textarea" oninput="auto_grow(this);"></textarea>
+      <input type="button" value="submit" onclick="process()">
+      <input type="button" value="example_text" onclick="example_text();">
     </form>
     <div id="outbox">
     </div>
