@@ -11,6 +11,14 @@
         background-color: #f8f8f8;
         resize: none;
       }
+      .textresult {
+        width: 100%;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+      }
     </style>
     <script>
       function sleep(ms) {
@@ -29,7 +37,7 @@
         console.log( "found", found );
 
         
-        if (found.length == 2) {
+        if (found && found != null && found.length == 2) {
           const re = /<tr>\s*?(.*?)\s*?<\/tr>/smg;
           const re2 = /(<(th|td).*?(th|td)>)/msg;
           const thead = found[0]
@@ -148,7 +156,7 @@
     </form>
 
     <h1>Result: Split Code</h1>
-    <div id="outbox" style="border-radius: 5px; border-width: 1px; border-color: #222222; border: solid; white-space: pre;">
+    <div id="outbox" class="textresult" style="border-radius: 5px; border-width: 1px; border-color: #222222; border: solid; white-space: pre;">
     </div>
 
     <h1>Input</h1>
