@@ -139,7 +139,7 @@
 </table>
 `
 
-        await sleep(200)
+        await sleep(20)
         await auto_grow_textarea(inbox, scrollto_element)
         onInboxChanged()
       }
@@ -182,6 +182,11 @@
         await sleep(500);
         copy_button.animate(buttonSpinning, buttonTiming);
       }
+
+      async function onInboxInput(element, scrollTo) {
+        auto_grow_textarea(this, submit_button);
+        (async () => { await sleep(30); onInboxChanged(); await sleep(100); scrollToElement(copy_button); await sleep(100); copyToClipBoard(outbox, copy_button);  animateThing(copy_button); })()
+      }
     </script>
   </head>
   <body>
@@ -189,9 +194,9 @@
 
     <h1>Paste Shopify Sizing html code block here</h1>
     <form action="" method="get">
-      <textarea id="inbox" class="textarea" oninput="auto_grow_textarea(this, submit_button); (async () => { await sleep(30); onInboxChanged(); await sleep(100); scrollToElement(copy_button); await sleep(100); copyToClipBoard(outbox, copy_button);  animateThing(copy_button); })(); return false"></textarea>
-      <input id="submit_button" type="button" value="submit" onclick="onInboxChanged(); (async () => {await sleep(20); scrollToElement(copy_button)})()">
-      <input id="example_text_button" type="button" value="example_text" onclick="example_text(submit_button);">
+      <textarea id="inbox" class="textarea" oninput="onInboxInput(this, submit_button); return false"></textarea>
+      <input id="submit_button" type="button" value="submit" onclick="onInboxInput(inbox, submit_button)">
+      <input id="example_text_button" type="button" value="example_text" onclick="example_text(submit_button);  onInboxInput(inbox, submit_button)">
       <input id="clear_button" type="button" value="clear" onclick="clr(submit_button)">
     </form>
 
