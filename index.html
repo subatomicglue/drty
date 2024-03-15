@@ -13,10 +13,20 @@
       }
     </style>
     <script>
-      function process() {
-        outbox.innerHTML = inbox.value.replace( /\n/g, "<br>" )
+      function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
       }
-      function example_text() {
+      function onInboxChanged() {
+        //outbox.innerHTML = inbox.value.replace( /\n/g, "<br>" )
+        outbox.innerHTML = inbox.value
+      }
+      async function clr() {
+        inbox.value = "";
+        await sleep(200)
+        auto_grow(inbox)
+        onInboxChanged()
+      }
+      async function example_text() {
         inbox.value = `<table id="size-guide" style="min-width: 360px;">
 <thead>
 <tr>
@@ -68,19 +78,24 @@
 </tbody>
 </table>
 `
+
+        await sleep(200)
+        auto_grow(inbox)
+        onInboxChanged()
       }
-      function auto_grow(element) {
+      function auto_grow_textarea(element) {
         element.style.height = "5px";
-        element.style.height = (element.scrollHeight) + "px";
+        element.style.height = (element.scrollHeight + 10) + "px";
       }
     </script>
   </head>
   <body>
     <a href="https://html-preview.github.io/?url=https://github.com/subatomicglue/drty/blob/main/index.html">github</a>
     <form action="" method="get">
-      <textarea id="inbox" class="textarea" oninput="auto_grow(this);"></textarea>
-      <input type="button" value="submit" onclick="process()">
+      <textarea id="inbox" class="textarea" oninput="auto_grow_textarea(this);"></textarea>
+      <input type="button" value="submit" onclick="onInboxChanged()">
       <input type="button" value="example_text" onclick="example_text();">
+      <input type="button" value="clear" onclick="clr()">
     </form>
     <div id="outbox">
     </div>
