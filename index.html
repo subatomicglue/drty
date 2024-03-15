@@ -1,0 +1,33 @@
+<head>
+  <head>
+    <style>
+      .textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        resize: none;
+      }
+    </style>
+    <script>
+      function submit() {
+        outbox.innerHTML = inbox.value.replace( /\n/g, "<br>" )
+      }
+      function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+      }
+    </script>
+  </head>
+  <body>
+    <form action="" method="get">
+      <textarea id="inbox" class="textarea" oninput="auto_grow(this)"></textarea>
+      <input type="button" value="submit" onclick="submit();">
+    </form>
+    <div id="outbox">
+    </div>
+  </body>
+</head>
