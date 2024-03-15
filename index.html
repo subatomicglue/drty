@@ -19,6 +19,12 @@
         border-radius: 4px;
         background-color: #f8f8f8;
       }
+      .button {
+        transition: all 500ms;
+      }
+      .button.animated {
+        color: #ff0000;
+      }
     </style>
     <script>
       function sleep(ms) {
@@ -77,7 +83,7 @@
       async function clr(scrollto_element) {
         inbox.value = "";
         await sleep(200)
-        auto_grow_textarea(inbox, scrollto_element)
+        await auto_grow_textarea(inbox, scrollto_element)
         onInboxChanged()
       }
       async function example_text(scrollto_element) {
@@ -134,17 +140,18 @@
 `
 
         await sleep(200)
-        auto_grow_textarea(inbox, scrollto_element)
+        await auto_grow_textarea(inbox, scrollto_element)
         onInboxChanged()
       }
-      function auto_grow_textarea(element, scrollto=undefined) {
+      async function auto_grow_textarea(element, scrollto=undefined) {
         element.style.height = "5px";
         element.style.height = (element.scrollHeight + 10) + "px";
 
-        (scrollto ? scrollto : element).scrollIntoView({ behavior: "smooth", block: "end", inline: "start" })
+        await sleep( 20 );
+        scrollToElement(scrollto ? scrollto : element);
       }
 
-      function copyToClipBoard(e) {
+      function copyToClipBoard(e, e_anim_vfx) {
         console.log( e )
         // Select the text field
         //e.select();
@@ -154,27 +161,45 @@
         navigator.clipboard.writeText(e.textContent);
       }
 
-      function scrollOnSubmit(scrollTo) {
-        scrollTo.scrollIntoView({ behavior: "smooth", block: "end", inline: "start" })
+      function scrollToElement(e) {
+        console.log( "autoscroll", e )
+        e.scrollIntoView({ behavior: "smooth", block: "center", inline: "start" })
+      }
+
+      async function animateThing( e ) {
+        const buttonSpinning = [
+          { transform: "rotate(0) scale(1)" },
+          { transform: "rotate(360deg) scale(0)" },
+        ];
+        const buttonTiming = {
+          duration: 500,
+          iterations: 1,
+        };
+        await sleep(500);
+        copy_button.classList.add('animated');
+        await sleep(500);
+        copy_button.classList.remove('animated');
+        await sleep(500);
+        copy_button.animate(buttonSpinning, buttonTiming);
       }
     </script>
   </head>
   <body>
     <a href="https://html-preview.github.io/?url=https://github.com/subatomicglue/drty/blob/main/index.html">github</a>
 
-    <h1>Enter Shopify Sizing html code block here</h1>
+    <h1>Paste Shopify Sizing html code block here</h1>
     <form action="" method="get">
-      <textarea id="inbox" class="textarea" oninput="auto_grow_textarea(this, submit_button);"></textarea>
-      <input id="submit_button" type="button" value="submit" onclick="onInboxChanged(); scrollOnSubmit(copy_button)">
+      <textarea id="inbox" class="textarea" oninput="auto_grow_textarea(this, submit_button); (async () => { await sleep(30); onInboxChanged(); await sleep(100); scrollToElement(copy_button); await sleep(100); copyToClipBoard(outbox, copy_button);  animateThing(copy_button); })(); return false"></textarea>
+      <input id="submit_button" type="button" value="submit" onclick="onInboxChanged(); (async () => {await sleep(20); scrollToElement(copy_button)})()">
       <input id="example_text_button" type="button" value="example_text" onclick="example_text(submit_button);">
       <input id="clear_button" type="button" value="clear" onclick="clr(submit_button)">
     </form>
 
-    <h1>Result: Split Code</h1>
+    <h1>Copy the Split Code back to Shopify</h1>
     <div id="outbox" class="textresult" style="border-radius: 5px; border-width: 1px; border-color: #222222; border: solid; white-space: pre;">
     </div>
     <form action="" method="get">
-      <input id="copy_button" type="button" value="copy" onclick="copyToClipBoard(outbox)">
+      <input id="copy_button" type="button" value="copy" class="button" onclick="copyToClipBoard(outbox, copy_button); animateThing(copy_button);">
       <input id="clear_button" type="button" value="clear" onclick="clr(submit_button)">
     </form>
 
