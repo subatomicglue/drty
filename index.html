@@ -57,13 +57,13 @@
           for (let x = 1; x < thead_found.length; x += split) {
             bok += "<table>\n"
             bok += `<thead>\n`
-            bok += `<tr>\n${thead_found[0]}\n${thead_found.slice( x, Math.min( x+split, thead_found.length - 1 ) ).join("\n")}\n</tr>\n`
+            bok += `<tr>\n${thead_found[0]}\n${thead_found.slice( x, Math.min( x+split, thead_found.length ) ).join("\n")}\n</tr>\n`
             bok += `</thead>\n`
             bok += `<tbody>\n`
             for (let tbody_found_it of tbody_found) {
               const tbody_found_n = tbody_found_it.match( re2 )
               console.log( "tbody_found_n", tbody_found_n ) ;
-              bok += `<tr>\n${tbody_found_n[0]}\n${tbody_found_n.slice( x, Math.min( x+split, thead_found.length - 1 ) ).join("\n")}\n</tr>\n`
+              bok += `<tr>\n${tbody_found_n[0]}\n${tbody_found_n.slice( x, Math.min( x+split, thead_found.length ) ).join("\n")}\n</tr>\n`
             }
             bok += `</body>\n`
             bok += "</table>\n"
@@ -140,7 +140,22 @@
       function auto_grow_textarea(element, scrollto=undefined) {
         element.style.height = "5px";
         element.style.height = (element.scrollHeight + 10) + "px";
+
         (scrollto ? scrollto : element).scrollIntoView({ behavior: "smooth", block: "end", inline: "start" })
+      }
+
+      function copyToClipBoard(e) {
+        console.log( e )
+        // Select the text field
+        //e.select();
+        //e.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(e.textContent);
+      }
+
+      function scrollOnSubmit(scrollTo) {
+        scrollTo.scrollIntoView({ behavior: "smooth", block: "end", inline: "start" })
       }
     </script>
   </head>
@@ -150,7 +165,7 @@
     <h1>Enter Shopify Sizing html code block here</h1>
     <form action="" method="get">
       <textarea id="inbox" class="textarea" oninput="auto_grow_textarea(this, submit_button);"></textarea>
-      <input id="submit_button" type="button" value="submit" onclick="onInboxChanged()">
+      <input id="submit_button" type="button" value="submit" onclick="onInboxChanged(); scrollOnSubmit(copy_button)">
       <input id="example_text_button" type="button" value="example_text" onclick="example_text(submit_button);">
       <input id="clear_button" type="button" value="clear" onclick="clr(submit_button)">
     </form>
@@ -158,6 +173,10 @@
     <h1>Result: Split Code</h1>
     <div id="outbox" class="textresult" style="border-radius: 5px; border-width: 1px; border-color: #222222; border: solid; white-space: pre;">
     </div>
+    <form action="" method="get">
+      <input id="copy_button" type="button" value="copy" onclick="copyToClipBoard(outbox)">
+      <input id="clear_button" type="button" value="clear" onclick="clr(submit_button)">
+    </form>
 
     <h1>Input</h1>
     <div id="previewbox1">
